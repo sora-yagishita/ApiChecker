@@ -1,0 +1,12 @@
+{
+  "apiInfo": [
+    {
+      "apiName": "API1",
+      "apiEndpoint": "https://run.mocky.io/v3/571e1425-b759-4c71-8cbe-3a60e9b7a34a"
+    },
+    {
+      "apiName": "API2",
+      "apiEndpoint": "https://run.mocky.io/v3/7eaf4d40-7d09-40c4-8f49-5ab4b04c6454"
+    }
+  ]
+}
