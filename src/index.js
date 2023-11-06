@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App'; // アプリケーションのルートコンポーネントをインポート
+import App from './App';
 
 ReactDOM.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
-  document.getElementById('root') // ルート要素のID（通常は "root"）にコンポーネントをレンダリング
+  document.getElementById('root')
 );

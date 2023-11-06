@@ -1,4 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+function ConvertJson(api) {
+  const apiParams = {};
+  api.apiParams.forEach((param) => {
+    apiParams[param.key] = param.value;
+  });
+  console.log(apiParams);
+  return apiParams;
+}
 
 function StatusDisplay() {
   const [apiInfo, setApiInfo] = useState([]);
@@ -25,25 +35,27 @@ function StatusDisplay() {
   }, []);
 
   const fetchStatusCode = async (api) => {
-    try {
-      const response = await fetch(api.apiEndpoint, {
-        method: 'GET',
-      });
-
-      const status = response.status;
+    const params = ConvertJson(api);
+    await axios.get(
+      api.apiEndpoint,
+      {
+        params: {
+          params
+        }
+      }
+    ).then(response => {
       setStatusCodes((prevStatusCodes) => ({
         ...prevStatusCodes,
-        [api.apiName]: status,
+        [api.apiName]: response.status,
       }));
-
       setLastApiRequestTime(new Date());
-    } catch (error) {
+    }).catch(error => {
       console.error(`${api.apiName} API呼び出し中にエラーが発生しました`, error);
       setStatusCodes((prevStatusCodes) => ({
         ...prevStatusCodes,
-        [api.apiName]: 'Error',
+        [api.apiName]: error.response.status,
       }));
-    }
+    })
   };
 
   return (
@@ -52,9 +64,9 @@ function StatusDisplay() {
         <div key={api.apiName}>
           <p>API名: {api.apiName}</p>
           <p>ステータスコード: {statusCodes[api.apiName]}</p>
+          <p>最終更新時間: {lastApiRequestTime ? lastApiRequestTime.toLocaleTimeString() : 'まだ送信されていません'}</p>
         </div>
       ))}
-      <p>最終更新時間: {lastApiRequestTime ? lastApiRequestTime.toLocaleTimeString() : 'まだ送信されていません'}</p>
     </div>
   );
 }
