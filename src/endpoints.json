@@ -13,7 +13,7 @@
           "value": "1"
         }
       ],
-      "requestInterval": "3600"
+      "requestIntervalMin": "1"
     },
     {
       "apiName": "API2",
@@ -28,7 +28,7 @@
           "value": "2"
         }
       ],
-      "requestInterval": "10"
+      "requestIntervalMin": "0.25"
     }
   ]
 }
